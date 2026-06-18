@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silverkash | Creating Unforgettable Celebrations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --charcoal: #111111;
+      --ink: #17130d;
+      --white: #fafafa;
+      --muted: rgba(250, 250, 250, .72);
+      --gold: #d4af37;
+      --rose: #ffd6e8;
+      --mint: #c8fff0;
+      --sky: #dbeafe;
+      --glass: rgba(255, 255, 255, .10);
+      --line: rgba(255, 255, 255, .20);
+      --shadow: 0 28px 90px rgba(0, 0, 0, .36);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(212, 175, 55, .18), transparent 28rem),
+        radial-gradient(circle at 88% 6%, rgba(255, 214, 232, .14), transparent 26rem),
+        radial-gradient(circle at 50% 75%, rgba(200, 255, 240, .10), transparent 30rem),
+        var(--charcoal);
+      font-family: Poppins, Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 86px 86px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), transparent 75%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+
+    .cursor-glow {
+      position: fixed;
+      width: 22rem;
+      height: 22rem;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(212, 175, 55, .18), rgba(255, 214, 232, .08) 38%, transparent 68%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 2;
+      opacity: .85;
+      mix-blend-mode: screen;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      width: min(1180px, calc(100% - 28px));
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, .58);
+      backdrop-filter: blur(22px) saturate(150%);
+      box-shadow: 0 20px 70px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.28), 0 12px 34px rgba(212,175,55,.18);
+    }
+
+    .brand span {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.35rem, 2vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links li { position: relative; }
+    .nav-links a, .nav-links button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 999px;
+      color: rgba(250,250,250,.84);
+      background: transparent;
+      cursor: pointer;
+      font-size: .86rem;
+      font-weight: 500;
+      transition: background .25s ease, color .25s ease, transform .25s ease;
+    }
+
+    .nav-links a:hover, .nav-links button:hover {
+      color: var(--white);
+      background: rgba(255,255,255,.10);
+      transform: translateY(-1px);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      min-width: 210px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(17,17,17,.82);
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+
+    .has-menu:hover .dropdown, .has-menu:focus-within .dropdown {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .dropdown a {
+      justify-content: flex-start;
+      width: 100%;
+      border-radius: 14px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      transition: transform .25s ease, background .25s ease;
+    }
+
+    .icon-btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+    .menu-toggle { display: none; }
+
+    main, footer { position: relative; z-index: 1; }
+    .section { padding: clamp(76px, 10vw, 140px) max(22px, calc((100vw - 1180px) / 2)); }
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border: 1px solid rgba(212,175,55,.32);
+      border-radius: 999px;
+      background: rgba(212,175,55,.08);
+      color: #ffe9a3;
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: var(--white);
+    }
+
+    h1 {
+      max-width: 910px;
+      font-size: clamp(4rem, 8vw, 9.8rem);
+      line-height: .84;
+    }
+
+    h2 {
+      max-width: 760px;
+      font-size: clamp(2.6rem, 5.5vw, 6.4rem);
+      line-height: .88;
+    }
+
+    h3 {
+      font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+      line-height: 1;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      padding: 118px max(22px, calc((100vw - 1180px) / 2)) 44px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(17,17,17,.92) 0%, rgba(17,17,17,.70) 42%, rgba(17,17,17,.35) 100%),
+        linear-gradient(0deg, #111 0%, rgba(17,17,17,.18) 36%, rgba(17,17,17,.36) 100%);
+    }
+
+    .collage {
+      position: absolute;
+      inset: -6% -4% 0 34%;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 16vh;
+      gap: 14px;
+      transform: rotate(-4deg) scale(1.06);
+      opacity: .86;
+      animation: slowDrift 18s ease-in-out infinite alternate;
+    }
+
+    .tile {
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 24px 60px rgba(0,0,0,.34);
+      background: rgba(255,255,255,.08);
+    }
+
+    .tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.06);
+      animation: imageBreath 10s ease-in-out infinite alternate;
+    }
+
+    .tile:nth-child(1) { grid-column: span 3; grid-row: span 2; }
+    .tile:nth-child(2) { grid-column: span 2; grid-row: span 2; transform: translateY(34px); }
+    .tile:nth-child(3) { grid-column: span 2; grid-row: span 3; }
+    .tile:nth-child(4) { grid-column: span 3; grid-row: span 2; transform: translateY(-22px); }
+    .tile:nth-child(5) { grid-column: span 2; grid-row: span 2; }
+    .tile:nth-child(6) { grid-column: span 3; grid-row: span 2; transform: translateY(30px); }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: end;
+      gap: 38px;
+    }
+
+    .hero-copy {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: enter .9s ease .16s forwards;
+    }
+
+    .hero-copy p {
+      max-width: 690px;
+      margin-top: 26px;
+      font-size: clamp(1rem, 1.9vw, 1.35rem);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      --x: 50%;
+      --y: 50%;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 0 24px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      color: var(--white);
+      background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,.28), rgba(255,255,255,.10) 26%, rgba(255,255,255,.06) 66%);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18);
+      font-weight: 700;
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .btn.primary {
+      color: #16120a;
+      background: linear-gradient(135deg, #ffe99d, var(--gold) 52%, #fff2bd);
+      border-color: rgba(255,238,166,.7);
+      box-shadow: 0 18px 56px rgba(212,175,55,.26);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212,175,55,.65);
+      box-shadow: 0 22px 70px rgba(212,175,55,.18), inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    .hero-stack {
+      display: grid;
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(22px);
+      animation: enter .9s ease .38s forwards;
+    }
+
+    .glass-card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+      backdrop-filter: blur(24px) saturate(150%);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.20);
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(212,175,55,.7), rgba(255,255,255,.05), rgba(255,214,232,.52), rgba(200,255,240,.34));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: .65;
+    }
+
+    .trust-card {
+      padding: 22px;
+      animation: floatSoft 5s ease-in-out infinite;
+    }
+
+    .trust-card strong {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 2.3rem;
+      line-height: .95;
+      color: #ffe9a3;
+    }
+
+    .mini-card {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 12px;
+      animation: floatSoft 6s ease-in-out infinite reverse;
+    }
+
+    .mini-card img {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+
+    .mini-card b { display: block; margin-bottom: 4px; }
+    .mini-card span { color: var(--muted); font-size: .82rem; line-height: 1.5; }
+
+    .scroll-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 24px;
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 54px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      transform: translateX(-50%);
+      opacity: .78;
+    }
+
+    .scroll-indicator::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--gold);
+      animation: scrollDot 1.8s ease-in-out infinite;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .category-card {
+      min-height: 420px;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      box-shadow: 0 24px 70px rgba(0,0,0,.32);
+      transform: translateZ(0);
+    }
+
+    .category-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease;
+      z-index: -2;
+    }
+
+    .category-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(to top, rgba(17,17,17,.86), rgba(17,17,17,.14) 62%, rgba(17,17,17,.08));
+    }
+
+    .category-card:hover img {
+      transform: scale(1.08);
+      filter: saturate(1.08) contrast(1.05);
+    }
+
+    .category-overlay {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 24px;
+      background: rgba(255,255,255,.10);
+      backdrop-filter: blur(18px);
+    }
+
+    .category-overlay p {
+      margin: 8px 0 15px;
+      font-size: .92rem;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffe9a3;
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .benefit-card {
+      min-height: 220px;
+      padding: 24px;
+      transition: transform .35s ease, background .35s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-8px);
+      background: linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.08));
+    }
+
+    .benefit-icon {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 26px;
+      border-radius: 18px;
+      color: #20180a;
+      background: linear-gradient(135deg, #fff1b5, var(--gold));
+      box-shadow: 0 14px 34px rgba(212,175,55,.24);
+    }
+
+    .benefit-card p, .process-card p, .review-card p { margin-top: 12px; }
+
+    .gallery {
+      columns: 3 260px;
+      column-gap: 18px;
+    }
+
+    .gallery button {
+      display: block;
+      width: 100%;
+      margin: 0 0 18px;
+      padding: 0;
+      border: 0;
+      border-radius: 28px;
+      background: transparent;
+      overflow: hidden;
+      cursor: zoom-in;
+      break-inside: avoid;
+      box-shadow: 0 24px 70px rgba(0,0,0,.28);
+    }
+
+    .gallery img {
+      width: 100%;
+      transition: transform .55s ease, filter .55s ease;
+    }
+
+    .gallery button:hover img {
+      transform: scale(1.055);
+      filter: brightness(1.07) saturate(1.08);
+    }
+
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .review-card {
+      padding: 24px;
+      min-height: 280px;
+    }
+
+    .review-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .review-top img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,.26);
+    }
+
+    .stars {
+      color: #ffe083;
+      letter-spacing: .08em;
+      margin-top: 4px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      counter-reset: step;
+    }
+
+    .process-card {
+      min-height: 255px;
+      padding: 24px;
+      counter-increment: step;
+    }
+
+    .process-card::after {
+      content: "0" counter(step);
+      position: absolute;
+      right: 22px;
+      top: 18px;
+      color: rgba(255,255,255,.13);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 5.2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .process-card .benefit-icon { margin-bottom: 58px; }
+
+    .final-cta {
+      padding-bottom: 120px;
+      text-align: center;
+    }
+
+    .cta-panel {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      gap: 22px;
+      padding: clamp(54px, 8vw, 92px) 24px;
+      border-radius: 36px;
+      overflow: hidden;
+    }
+
+    .cta-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(212,175,55,.26), transparent 18rem),
+        radial-gradient(circle at 85% 78%, rgba(255,214,232,.18), transparent 20rem);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 28px max(22px, calc((100vw - 1180px) / 2)) 38px;
+      color: rgba(250,250,250,.58);
+      font-size: .9rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(18px);
+    }
+
+    .lightbox.active { display: grid; }
+    .lightbox img {
+      max-height: 84vh;
+      border-radius: 28px;
+      box-shadow: 0 34px 110px rgba(0,0,0,.62);
+    }
+
+    .lightbox button {
+      position: fixed;
+      top: 22px;
+      right: 22px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.12);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes enter {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slowDrift {
+      to { transform: rotate(-2deg) scale(1.09) translate3d(-16px, 18px, 0); }
+    }
+
+    @keyframes imageBreath {
+      to { transform: scale(1.14); }
+    }
+
+    @keyframes floatSoft {
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes scrollDot {
+      0%, 100% { transform: translateY(-12px); opacity: .35; }
+      50% { transform: translateY(12px); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+      .cursor-glow { display: none; }
+    }
+
+    @media (max-width: 980px) {
+      .site-nav { align-items: center; border-radius: 30px; }
+      .menu-toggle { display: inline-grid; }
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        display: none;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: rgba(17,17,17,.88);
+        backdrop-filter: blur(24px);
+        box-shadow: var(--shadow);
+      }
+      .nav-links.open { display: grid; }
+      .nav-links a, .nav-links button { width: 100%; justify-content: space-between; }
+      .dropdown {
+        position: static;
+        display: grid;
+        min-width: 0;
+        margin: 4px 0 8px;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        background: rgba(255,255,255,.06);
+        box-shadow: none;
+      }
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-stack { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .collage { inset: 16% -45% 4% 20%; opacity: .45; }
+      .category-grid, .benefit-grid, .reviews { grid-template-columns: repeat(2, 1fr); }
+      .process { grid-template-columns: repeat(2, 1fr); }
+      .section-header { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 640px) {
+      .cursor-glow { display: none; }
+      .site-nav { top: 10px; width: calc(100% - 18px); padding: 8px; }
+      .brand img { width: 46px; height: 46px; }
+      .brand span { font-size: 1.24rem; }
+      .nav-actions .icon-btn:not(.menu-toggle) { display: none; }
+      .hero { padding-top: 104px; }
+      h1 { font-size: clamp(3.5rem, 17vw, 5.6rem); }
+      h2 { font-size: clamp(2.4rem, 12vw, 4rem); }
+      .hero-stack, .category-grid, .benefit-grid, .reviews, .process { grid-template-columns: 1fr; }
+      .category-card { min-height: 360px; }
+      .cta-row { width: 100%; }
+      .btn { width: 100%; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="brand" href="https://silverkash.com/">
+      <img src="https://silverkash.com/wp-content/uploads/2025/09/silver-kash-logoddd.jpg" alt="silverkash.com logo" />
+      <span>silverkash.com</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://silverkash.com/">Home</a></li>
+      <li class="has-menu">
+        <button type="button">Themes <i data-lucide="chevron-down" size="14"></i></button>
+        <div class="dropdown">
+          <a href="#">Boys</a>
+          <a href="#">Girls</a>
+          <a href="#">Unisex</a>
+        </div>
+      </li>
+      <li class="has-menu">
+        <button type="button">Products <i data-lucide="chevron-down" size="14"></i></button>
+        <div class="dropdown">
+          <a href="https://silverkash.com/product-category/welcome-board/">Welcome Board</a>
+          <a href="https://silverkash.com/product-category/backdrop/">Backdrop</a>
+          <a href="https://silverkash.com/products/">All Products</a>
+        </div>
+      </li>
+      <li class="has-menu">
+        <button type="button">Help <i data-lucide="chevron-down" size="14"></i></button>
+        <div class="dropdown">
+          <a href="https://silverkash.com/contact-us/">Contact Us</a>
+          <a href="https://silverkash.com/about-us/">About Us</a>
+        </div>
+      </li>
+      <li><a href="https://silverkash.com/my-account/">My account</a></li>
+      <li><a href="https://silverkash.com/checkout/">Checkout</a></li>
+      <li><a href="https://silverkash.com/cart/">Cart</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="icon-btn" href="https://silverkash.com/my-account/" aria-label="My account"><i data-lucide="user" size="18"></i></a>
+      <a class="icon-btn" href="https://silverkash.com/cart/" aria-label="Cart"><i data-lucide="shopping-bag" size="18"></i></a>
+      <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-controls="navLinks"><i data-lucide="menu" size="20"></i></button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="collage">
+          <div class="tile"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-logosww.jpg" alt=""></div>
+          <div class="tile"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-welcome-board.jpg" alt=""></div>
+          <div class="tile"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-photo-booth.jpg" alt=""></div>
+          <div class="tile"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-chalkboard.jpg" alt=""></div>
+          <div class="tile"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-Theme-cutout.jpg" alt=""></div>
+          <div class="tile"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-photo-collage.png" alt=""></div>
+        </div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-copy">
+          <span class="eyebrow"><i data-lucide="sparkles" size="15"></i> Custom Event Decor</span>
+          <h1>Creating Unforgettable Celebrations</h1>
+          <p>Transform your special moments with custom backdrops, welcome boards, photobooths and personalized event decor.</p>
+          <div class="cta-row">
+            <a class="btn primary magnetic" href="https://silverkash.com/products/">Explore Collections <i data-lucide="arrow-up-right" size="18"></i></a>
+            <a class="btn magnetic" href="https://silverkash.com/contact-us/">Create Your Custom Design <i data-lucide="wand-sparkles" size="18"></i></a>
+          </div>
+        </div>
+        <div class="hero-stack">
+          <div class="glass-card trust-card">
+            <strong>1000+</strong>
+            <p>Celebrations Designed</p>
+          </div>
+          <div class="glass-card mini-card">
+            <img src="https://silverkash.com/wp-content/uploads/2026/01/frozen-1-300x300.jpg" alt="Frozen theme backdrop">
+            <div><b>Theme-led designs</b><span>From birthdays to family milestones, personalized to the tiniest detail.</span></div>
+          </div>
+          <div class="glass-card mini-card">
+            <img src="https://silverkash.com/wp-content/uploads/2026/01/frozen-300x300.jpg" alt="Frozen welcome board">
+            <div><b>Made for memories</b><span>Boards, cutouts and photobooths that become photo moments.</span></div>
+          </div>
+        </div>
+      </div>
+      <a href="#categories" class="scroll-indicator" aria-label="Scroll to featured categories"></a>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow"><i data-lucide="layers-3" size="15"></i> Featured Categories</span>
+          <h2>Premium pieces for every celebration story.</h2>
+        </div>
+        <p>Large-format decor, keepsake boards and interactive photo moments made with a custom-first approach.</p>
+      </div>
+      <div class="category-grid">
+        <a class="category-card reveal" href="https://silverkash.com/product-category/backdrop/">
+          <img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-logosww.jpg" alt="Backdrops">
+          <div class="category-overlay"><h3>Backdrops</h3><p>Cinematic focal walls for birthdays, ceremonies and premium setups.</p><span class="text-link">Explore <i data-lucide="arrow-right" size="16"></i></span></div>
+        </a>
+        <a class="category-card reveal" href="https://silverkash.com/product-category/welcome-board/">
+          <img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-welcome-board.jpg" alt="Welcome Boards">
+          <div class="category-overlay"><h3>Welcome Boards</h3><p>Personalized first impressions designed around your theme.</p><span class="text-link">Explore <i data-lucide="arrow-right" size="16"></i></span></div>
+        </a>
+        <a class="category-card reveal" href="https://silverkash.com/products/">
+          <img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-chalkboard.jpg" alt="Kids Chalkboards">
+          <div class="category-overlay"><h3>Kids Chalkboards</h3><p>Milestone boards with bright detail, names and custom artwork.</p><span class="text-link">Explore <i data-lucide="arrow-right" size="16"></i></span></div>
+        </a>
+        <a class="category-card reveal" href="https://silverkash.com/products/">
+          <img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-photo-booth.jpg" alt="Photobooths">
+          <div class="category-overlay"><h3>Photobooths</h3><p>Playful frames and photo spots that guests naturally gather around.</p><span class="text-link">Explore <i data-lucide="arrow-right" size="16"></i></span></div>
+        </a>
+        <a class="category-card reveal" href="https://silverkash.com/products/">
+          <img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-Theme-cutout.jpg" alt="Theme Cutouts">
+          <div class="category-overlay"><h3>Theme Cutouts</h3><p>Character-led installations and statement props for immersive themes.</p><span class="text-link">Explore <i data-lucide="arrow-right" size="16"></i></span></div>
+        </a>
+        <a class="category-card reveal" href="https://silverkash.com/products/">
+          <img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-photo-collage.png" alt="Photo Collages">
+          <div class="category-overlay"><h3>Photo Collages</h3><p>Memory-rich displays that turn favorite moments into decor.</p><span class="text-link">Explore <i data-lucide="arrow-right" size="16"></i></span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow"><i data-lucide="gem" size="15"></i> Why Choose Silverkash</span>
+          <h2>Every detail is designed to feel personal and polished.</h2>
+        </div>
+      </div>
+      <div class="benefit-grid">
+        <div class="glass-card benefit-card reveal"><span class="benefit-icon"><i data-lucide="pen-tool" size="24"></i></span><h3>Fully Customized Designs</h3><p>Names, themes, colors and layouts are created around your event brief.</p></div>
+        <div class="glass-card benefit-card reveal"><span class="benefit-icon"><i data-lucide="badge-check" size="24"></i></span><h3>Premium Quality Materials</h3><p>Clean finishes and durable print quality for a standout celebration setup.</p></div>
+        <div class="glass-card benefit-card reveal"><span class="benefit-icon"><i data-lucide="truck" size="24"></i></span><h3>Fast Delivery</h3><p>Built for real event timelines, with clear support from order to dispatch.</p></div>
+        <div class="glass-card benefit-card reveal"><span class="benefit-icon"><i data-lucide="messages-square" size="24"></i></span><h3>Personal Support</h3><p>Human guidance for parents, planners and families finalizing every piece.</p></div>
+        <div class="glass-card benefit-card reveal"><span class="benefit-icon"><i data-lucide="palette" size="24"></i></span><h3>Unique Themes</h3><p>From character parties to elegant milestones, every theme can become decor.</p></div>
+        <div class="glass-card benefit-card reveal"><span class="benefit-icon"><i data-lucide="camera" size="24"></i></span><h3>Memorable Experiences</h3><p>Decor that frames photos beautifully and keeps guests talking after the event.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow"><i data-lucide="image" size="15"></i> Featured Gallery</span>
+          <h2>Immersive setups, crafted for the camera.</h2>
+        </div>
+        <p>Tap any image for a closer preview.</p>
+      </div>
+      <div class="gallery reveal">
+        <button type="button"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-logosww.jpg" alt="Custom backdrop event setup"></button>
+        <button type="button"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-welcome-board.jpg" alt="Welcome board setup"></button>
+        <button type="button"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-photo-booth.jpg" alt="Photobooth setup"></button>
+        <button type="button"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-chalkboard.jpg" alt="Kids chalkboard decor"></button>
+        <button type="button"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-Theme-cutout.jpg" alt="Theme cutout display"></button>
+        <button type="button"><img src="https://silverkash.com/wp-content/uploads/2025/12/silver-kash-photo-collage.png" alt="Photo collage display"></button>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow"><i data-lucide="heart" size="15"></i> Customer Reviews</span>
+          <h2>Loved by families and celebration planners.</h2>
+        </div>
+      </div>
+      <div class="reviews">
+        <article class="glass-card review-card reveal">
+          <div class="review-top"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=180&q=80" alt="Customer portrait"><div><b>Priya S.</b><div class="stars">★★★★★</div></div></div>
+          <h3>The backdrop looked premium in every photo.</h3>
+          <p>Silverkash understood the theme quickly and the final setup became the highlight of our birthday celebration.</p>
+        </article>
+        <article class="glass-card review-card reveal">
+          <div class="review-top"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=180&q=80" alt="Customer portrait"><div><b>Neha M.</b><div class="stars">★★★★★</div></div></div>
+          <h3>Personal support made ordering simple.</h3>
+          <p>The welcome board and cutouts matched our colors perfectly, and delivery was handled without stress.</p>
+        </article>
+        <article class="glass-card review-card reveal">
+          <div class="review-top"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=180&q=80" alt="Customer portrait"><div><b>Arjun K.</b><div class="stars">★★★★★</div></div></div>
+          <h3>Guests kept asking where we got it made.</h3>
+          <p>The photobooth and collage felt custom, modern and memorable. It lifted the entire party space.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow"><i data-lucide="route" size="15"></i> Process</span>
+          <h2>A simple path from idea to celebration.</h2>
+        </div>
+      </div>
+      <div class="process">
+        <div class="glass-card process-card reveal"><span class="benefit-icon"><i data-lucide="lightbulb" size="24"></i></span><h3>Share Your Idea</h3><p>Send the event type, theme, size and the products you want.</p></div>
+        <div class="glass-card process-card reveal"><span class="benefit-icon"><i data-lucide="clipboard-check" size="24"></i></span><h3>Approve Design</h3><p>Review the personalized design direction before production begins.</p></div>
+        <div class="glass-card process-card reveal"><span class="benefit-icon"><i data-lucide="hammer" size="24"></i></span><h3>We Create</h3><p>Your decor is printed, finished and prepared with event-ready care.</p></div>
+        <div class="glass-card process-card reveal"><span class="benefit-icon"><i data-lucide="party-popper" size="24"></i></span><h3>Celebrate</h3><p>Set the scene, welcome your guests and capture unforgettable photos.</p></div>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <div class="glass-card cta-panel reveal">
+        <span class="eyebrow"><i data-lucide="sparkle" size="15"></i> Custom Orders Open</span>
+        <h2>Let's Create Something Extraordinary</h2>
+        <p>Tell Silverkash your theme, date and decor wish list. The next celebration can start with one beautiful custom idea.</p>
+        <div class="cta-row">
+          <a class="btn primary magnetic" href="https://wa.me/918381805616">WhatsApp Us <i data-lucide="message-circle" size="18"></i></a>
+          <a class="btn magnetic" href="https://silverkash.com/contact-us/">Get Custom Quote <i data-lucide="send" size="18"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>silverkash.com</span>
+    <span>+91-8381805616 · Support@silverkash.com · Kanpur, U.P.</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Gallery preview">
+    <button class="icon-btn" type="button" aria-label="Close preview"><i data-lucide="x" size="20"></i></button>
+    <img alt="">
+  </div>
+
+  <script>
+    const navLinks = document.querySelector('#navLinks');
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    const glow = document.querySelector('.cursor-glow');
+    window.addEventListener('pointermove', (event) => {
+      glow.style.left = `${event.clientX}px`;
+      glow.style.top = `${event.clientY}px`;
+    }, { passive: true });
+
+    document.querySelectorAll('.magnetic').forEach((button) => {
+      button.addEventListener('pointermove', (event) => {
+        const rect = button.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        button.style.setProperty('--x', `${x}px`);
+        button.style.setProperty('--y', `${y}px`);
+        button.style.transform = `translate(${(x - rect.width / 2) * .08}px, ${(y - rect.height / 2) * .14}px)`;
+      });
+      button.addEventListener('pointerleave', () => {
+        button.style.transform = '';
+      });
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .14 });
+    reveals.forEach((item) => observer.observe(item));
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY * .06;
+      document.querySelector('.collage').style.translate = `0 ${y}px`;
+    }, { passive: true });
+
+    const lightbox = document.querySelector('#lightbox');
+    const lightboxImage = lightbox.querySelector('img');
+    document.querySelectorAll('.gallery button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const image = button.querySelector('img');
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.classList.add('active');
+      });
+    });
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox || event.target.closest('button')) {
+        lightbox.classList.remove('active');
+      }
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
